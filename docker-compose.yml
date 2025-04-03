@@ -48,7 +48,8 @@ services:
     ports:
       - "5003:5003"
     environment:
-      - BASE_URL=http://url-service:5001/s
+      # - BASE_URL=http://url-service:5001/s
+      - BASE_URL=https://shorturl.jettyjaaaa.space/s
     restart: unless-stopped
     depends_on:
       - url-service
