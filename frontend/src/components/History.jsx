@@ -3,6 +3,9 @@ import axios from "axios";
 import { Trash2, BarChart3 } from "lucide-react";
 import formatDate from "../utils/formatDate";
 
+const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || "http://localhost:5001";
+const statsBaseUrl = import.meta.env.VITE_STATS_BASE_URL || "http://localhost:5002";
+
 export default function History({ onViewStats }) {
   const [sortBy, setSortBy] = useState("createdAt");
   const [history, setHistory] = useState([]);
@@ -12,17 +15,17 @@ export default function History({ onViewStats }) {
   }, []);
 
   const fetchHistory = async () => {
-    const res = await axios.get("http://localhost:5001/history");
+    const res = await axios.get(`${apiBaseUrl}/history`);
     setHistory(res.data);
   };
 
   const handleDelete = async (code) => {
-    await axios.delete(`http://localhost:5001/delete/${code}`);
+    await axios.delete(`${apiBaseUrl}/delete/${code}`);
     fetchHistory();
   };
 
   const handleViewStats = async (code) => {
-    const res = await axios.get(`http://localhost:5002/stats/${code}`);
+    const res = await axios.get(`${statsBaseUrl}/stats/${code}`);
     onViewStats(res.data.history);
   };
 

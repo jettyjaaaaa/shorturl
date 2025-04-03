@@ -1,6 +1,10 @@
 import { useState } from "react";
 import axios from "axios";
 
+const baseUrl = import.meta.env.VITE_API_BASE_URL || "http://localhost:5001";
+const qrUrl = import.meta.env.VITE_QR_BASE_URL || "http://localhost:5003";
+const statsUrl = import.meta.env.VITE_STATS_BASE_URL || "http://localhost:5002";
+
 export default function Shortener({ setStats, setShortUrl, setQrCode, setExpires }) {
   const [fullUrl, setFullUrl] = useState("");
   const [customCode, setCustomCode] = useState("");
@@ -20,17 +24,11 @@ export default function Shortener({ setStats, setShortUrl, setQrCode, setExpires
         expiryDate = defaultDate.toISOString().slice(0, 10);
       }
 
-      const res = await axios.post("https://shorturl.jettyjaaaa.space", {
+      const res = await axios.post(`${baseUrl}/shorten`, {
         fullUrl,
         customCode: customCode || undefined,
         expiresAt: expiryDate,
       });
-
-      // const res = await axios.post("http://localhost:5001/shorten", {
-      //   fullUrl,
-      //   customCode: customCode || undefined,
-      //   expiresAt: expiryDate,
-      // });
 
       const newShortUrl = res.data.shortUrl;
       setShortUrl(newShortUrl);
@@ -38,13 +36,13 @@ export default function Shortener({ setStats, setShortUrl, setQrCode, setExpires
 
       const code = customCode || newShortUrl.split("/").pop();
 
-      const qr = await axios.get(`http://localhost:5003/qrcode/${code}`);
+      const qr = await axios.get(`${qrUrl}/qrcode/${code}`);
       setQrCode(qr.data.qrCode);
 
-      const statRes = await axios.get(`http://localhost:5002/stats/${code}`);
+      const statRes = await axios.get(`${statsUrl}/stats/${code}`);
       setStats(statRes.data.history);
     } catch (err) {
-      alert("Error: " + err.response?.data?.error || err.message);
+      alert("Error: " + (err.response?.data?.error || err.message));
     } finally {
       setIsLoading(false);
     }
