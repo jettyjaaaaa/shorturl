@@ -6,13 +6,13 @@ import Url from "./models/Url.js";
 import axios from "axios";
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: "https://shorturl.jettyjaaaa.space"
+}));
 app.use(express.json());
 
-// ✅ เชื่อมต่อ MongoDB
 mongoose.connect(process.env.MONGO_URI || "mongodb://localhost:27017/shorturl");
 
-// 🔗 POST /shorten
 app.post("/shorten", async (req, res) => {
   const { fullUrl, customCode, expiresAt } = req.body;
 
