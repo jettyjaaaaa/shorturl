@@ -1,0 +1,30 @@
+# Node modules
+node_modules/
+
+# Build output
+dist/
+build/
+
+# Environment variables
+.env
+.env.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+
+# Docker stuff
+*.local
+docker-compose.override.yml
+
+# OS junk
+.DS_Store
+
+# Vite
+.vite/
+
+# IDE files
+.vscode/
+.idea/

@@ -1,0 +1,31 @@
+services:
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
+  frontend:
+    build: ./frontend
+    container_name: frontend-shorturl
+    ports:
+      - "80:80"
+    restart: unless-stopped
+
+  url-service:
+    build: ./services/url-service
+    ports:
+      - "5001:5001"
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/shorturl
+
+  analytics-service:
+    build: ./services/analytics-service
+    ports:
+      - "5002:5002"
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/analytics
+  qr-service:
+    build: ./services/qr-service
+    ports:
+      - "5003:5003"
+    environment:
+      - BASE_URL=http://url-service:5001/s
