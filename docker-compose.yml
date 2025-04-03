@@ -1,31 +1,56 @@
+version: "3.9"
+
 services:
   mongo:
-    image: mongo
+    image: mongo:6
+    container_name: mongo
     ports:
       - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    restart: unless-stopped
+
   frontend:
     build: ./frontend
     container_name: frontend-shorturl
     ports:
       - "80:80"
     restart: unless-stopped
+    depends_on:
+      - url-service
 
   url-service:
     build: ./services/url-service
+    container_name: url-service
     ports:
       - "5001:5001"
     environment:
       - MONGO_URI=mongodb://mongo:27017/shorturl
+    restart: unless-stopped
+    depends_on:
+      - mongo
 
   analytics-service:
     build: ./services/analytics-service
+    container_name: analytics-service
     ports:
       - "5002:5002"
     environment:
       - MONGO_URI=mongodb://mongo:27017/analytics
+    restart: unless-stopped
+    depends_on:
+      - mongo
+
   qr-service:
     build: ./services/qr-service
+    container_name: qr-service
     ports:
       - "5003:5003"
     environment:
       - BASE_URL=http://url-service:5001/s
+    restart: unless-stopped
+    depends_on:
+      - url-service
+
+volumes:
+  mongo-data:
