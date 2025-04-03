@@ -20,10 +20,12 @@ app.post("/shorten", async (req, res) => {
   const exists = await Url.findOne({ code: shortCode });
   if (exists) return res.status(400).json({ error: "This alias already exists." });
 
+  const baseUrl = process.env.BASE_URL || `${req.protocol}://${req.get("host")}`;
+
   const newUrl = await Url.create({
     fullUrl,
     code: shortCode,
-    shortUrl: `${req.protocol}://${req.get("host")}/s/${shortCode}`,
+    shortUrl: `${baseUrl}/s/${shortCode}`,
     expiresAt: expiresAt ? new Date(expiresAt) : null,
   });
 
@@ -31,6 +33,7 @@ app.post("/shorten", async (req, res) => {
     shortUrl: newUrl.shortUrl,
   });
 });
+
 
 // 🚀 Redirect URL
 app.get("/s/:code", async (req, res) => {

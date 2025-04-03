@@ -5,7 +5,8 @@ import cors from "cors";
 const app = express();
 app.use(cors());
 
-const BASE_URL = process.env.BASE_URL || "http://localhost:5001/s";
+// const BASE_URL = process.env.BASE_URL || "http://localhost:5001/s";
+const BASE_URL = process.env.BASE_URL || "BASE_URL=https://shorturl.jettyjaaaa.space/s";
 
 // GET /qrcode/:code
 app.get("/qrcode/:code", async (req, res) => {

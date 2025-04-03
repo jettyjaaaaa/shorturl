@@ -26,6 +26,7 @@ services:
       - "5001:5001"
     environment:
       - MONGO_URI=mongodb://mongo:27017/shorturl
+      - BASE_URL=https://shorturl.jettyjaaaaa.space
     restart: unless-stopped
     depends_on:
       - mongo
