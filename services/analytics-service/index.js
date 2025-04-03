@@ -1,10 +1,15 @@
+//analytics-service/index.js
+
 const express = require("express");
 const mongoose = require("mongoose");
 const Click = require("./models/Click");
 const cors = require("cors");
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: "https://shorturl.jettyjaaaa.space"
+}));
+
 app.use(express.json());
 
 mongoose.connect(process.env.MONGO_URI || "mongodb://localhost:27017/analytics");
