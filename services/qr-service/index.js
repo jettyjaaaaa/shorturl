@@ -5,7 +5,6 @@ import cors from "cors";
 const app = express();
 app.use(cors());
 
-// ✅ รองรับ BASE_URL แบบไม่มี /s
 const BASE_URL = process.env.BASE_URL || "http://localhost:5001";
 
 // ✅ GET /qrcode/:code → ส่ง QR Code สำหรับ short URL
