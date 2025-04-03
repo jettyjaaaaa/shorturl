@@ -5,7 +5,7 @@ import cors from "cors";
 const app = express();
 app.use(cors());
 
-const BASE_URL = process.env.BASE_URL || "http://localhost:5001";
+const BASE_URL = process.env.BASE_URL || "https://shorturl.jettyjaaaa.space";
 
 // ✅ GET /qrcode/:code → ส่ง QR Code สำหรับ short URL
 app.get("/qrcode/:code", async (req, res) => {

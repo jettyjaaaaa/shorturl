@@ -4,8 +4,8 @@ import axios from "axios";
 import { Trash2, BarChart3 } from "lucide-react";
 import formatDate from "../utils/formatDate";
 
-const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || "http://localhost:5001";
-const statsBaseUrl = import.meta.env.VITE_STATS_BASE_URL || "http://localhost:5002";
+const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || "/api";
+const statsBaseUrl = import.meta.env.VITE_STATS_BASE_URL || "/stats";
 
 export default function History({ onViewStats }) {
   const [sortBy, setSortBy] = useState("createdAt");

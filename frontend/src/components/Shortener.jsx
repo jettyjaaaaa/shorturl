@@ -2,9 +2,9 @@
 import { useState } from "react";
 import axios from "axios";
 
-const baseUrl = import.meta.env.VITE_API_BASE_URL || "http://localhost:5001";
-const qrUrl = import.meta.env.VITE_QR_BASE_URL || "http://localhost:5003";
-const statsUrl = import.meta.env.VITE_STATS_BASE_URL || "http://localhost:5002";
+const baseUrl = import.meta.env.VITE_API_BASE_URL || "/api";
+const qrUrl = import.meta.env.VITE_QR_BASE_URL || "/qr";
+const statsUrl = import.meta.env.VITE_STATS_BASE_URL || "/stats";
 
 export default function Shortener({ setStats, setShortUrl, setQrCode, setExpires }) {
   const [fullUrl, setFullUrl] = useState("");

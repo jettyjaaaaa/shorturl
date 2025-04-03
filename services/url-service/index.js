@@ -7,9 +7,7 @@ import Url from "./models/Url.js";
 import axios from "axios";
 
 const app = express();
-app.use(cors({
-  origin: "https://shorturl.jettyjaaaa.space"
-}));
+app.use(cors());
 app.use(express.json());
 
 mongoose.connect(process.env.MONGO_URI || "mongodb://localhost:27017/shorturl");
@@ -22,6 +20,8 @@ app.post("/shorten", async (req, res) => {
   if (exists) return res.status(400).json({ error: "This alias already exists." });
 
   const baseUrl = process.env.BASE_URL || `${req.protocol}://${req.get("host")}`;
+  console.log(`[POST] /shorten → Generated short URL: ${baseUrl}/s/${shortCode}`);
+
 
   const newUrl = await Url.create({
     fullUrl,

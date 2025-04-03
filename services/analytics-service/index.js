@@ -6,10 +6,7 @@ const Click = require("./models/Click");
 const cors = require("cors");
 
 const app = express();
-app.use(cors({
-  origin: "https://shorturl.jettyjaaaa.space"
-}));
-
+app.use(cors());
 app.use(express.json());
 
 mongoose.connect(process.env.MONGO_URI || "mongodb://localhost:27017/analytics");
