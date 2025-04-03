@@ -20,11 +20,17 @@ export default function Shortener({ setStats, setShortUrl, setQrCode, setExpires
         expiryDate = defaultDate.toISOString().slice(0, 10);
       }
 
-      const res = await axios.post("http://localhost:5001/shorten", {
+      const res = await axios.post("https://shorturl.jettyjaaaa.space", {
         fullUrl,
         customCode: customCode || undefined,
         expiresAt: expiryDate,
       });
+
+      // const res = await axios.post("http://localhost:5001/shorten", {
+      //   fullUrl,
+      //   customCode: customCode || undefined,
+      //   expiresAt: expiryDate,
+      // });
 
       const newShortUrl = res.data.shortUrl;
       setShortUrl(newShortUrl);
